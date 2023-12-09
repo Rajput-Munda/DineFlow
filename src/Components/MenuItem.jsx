@@ -1,6 +1,6 @@
-import '../Styles/Choose_Order.css';
+import '../Styles/MenuItem.css';
 
-const Choose_Order = (props) => {
+const MenuItem = (props) => {
   return (
 
     <>
@@ -23,4 +23,4 @@ const Choose_Order = (props) => {
   )
 }
 
-export default Choose_Order;
+export default MenuItem;

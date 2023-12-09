@@ -1,0 +1,29 @@
+/* OrderDetail.css */
+.order-detail {
+  margin: 5px 5px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+p {
+  font-size: small;
+  margin-bottom: 2px;
+}
+
+.order-detail h4 {
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+
+.dateAndOrderId {
+  color: rgb(147, 146, 143);
+  margin-bottom: 0px;
+}
+
+.order-detail div {
+  font-size: 16px;
+  line-height: 1.5;
+}

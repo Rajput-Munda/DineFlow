@@ -1,6 +1,6 @@
-import '../Styles/Menu_Items.css';
+import '../Styles/MenuCategory.css';
 
-const Menu_Items = (props) => {
+const MenuCategory = (props) => {
     const { icon1 } = props;
   return (
 
@@ -17,4 +17,4 @@ const Menu_Items = (props) => {
   )
 }
 
-export default Menu_Items;
+export default MenuCategory;
