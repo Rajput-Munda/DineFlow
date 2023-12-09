@@ -1,0 +1,19 @@
+.main-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+ 
+.main-highlight {
+    margin: 3% 0;
+    padding: 2%;
+    background-color: var(--secondaryColor);
+    border-radius: 8px;
+}
+
+.main-menus {
+    min-height: 100%;
+    background-color: var(--greyColor);
+    padding: 2%;
+    border-radius: 8px;
+}
