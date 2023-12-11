@@ -1,14 +1,16 @@
 import '../Styles/MenuCategory.css';
 
 const MenuCategory = (props) => {
-    const { icon1 } = props;
+  const handleCategoryClick = () => {
+    props.onClick(props.names); // Pass the category name to the parent component
+  };
   return (
 
     <>
       
-      <div className="filter-card">
+      <div className="filter-card" onClick={handleCategoryClick}>
           <div className="filter-icon">
-            { icon1 }
+            { props.icon }
           </div>
           <p>{props.names}</p>
         </div>

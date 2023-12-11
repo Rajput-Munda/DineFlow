@@ -1,6 +1,6 @@
 /* OrderDetail.css */
 .order-detail {
-  margin: 5px 5px;
+  margin: 20px 5px;
   display: flex;
   flex-direction: column;
   border: 1px solid #ccc;

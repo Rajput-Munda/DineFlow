@@ -1,21 +1,19 @@
 import React from "react";
-import { FaTimes } from "react-icons/fa";
-import  OrderDetail from "./OrderDetail";
-import  OrderItem  from "./OrderItem";
-import  OrderTotal  from "./OrderTotal";
-import  OrderName  from "./OrderName";
+import OrderItemsContainer from "./OrderItemsContainer";
+import OrderTotal from "./OrderTotal";
+import OrderName from "./OrderName";
+import "../Styles/OrderContainer.css";
 
-const OrderContainer = ({onCloseSidebar}) => {
+const OrderContainer = ({ onCloseSidebar }) => {
   return (
     <nav className="side-navbar">
-      <div className="close-btn" onClick={onCloseSidebar}>
-        <FaTimes />
-      </div>
       <OrderName />
-      <OrderDetail />
-      <OrderItem />
+      <br></br>
+      <OrderItemsContainer />
       <OrderTotal />
-
+      <div className="pay-now-container">
+        <button className="pay-now-btn">Pay Now</button>
+      </div>
     </nav>
   );
 };

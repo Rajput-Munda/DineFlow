@@ -6,7 +6,6 @@ import RestaurantTablesContainer from './RestaurantTablesContainer';
 import MenuContainer from './MenuContainer';
 
 
-
 const Main = () => {
   return (
     <>

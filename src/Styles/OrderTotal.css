@@ -1,0 +1,20 @@
+/* OrderTotal.css */
+.order-total {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px 5px;
+  }
+  
+  .total-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  
+  .total-row {
+    font-weight: bold;
+  }
+  
+  /* Optional: Adjust styling for aesthetics */
+  

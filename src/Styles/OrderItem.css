@@ -1,0 +1,19 @@
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .name {
+    width: 50%; /* Adjust this value to allocate more space */
+  }
+  
+  .quantity {
+    /* You can add styles for the quantity here */
+  }
+  
+  .price {
+    /* You can add styles for the price here */
+  }
+  

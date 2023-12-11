@@ -29,3 +29,16 @@
     gap: 1.5rem;
     overflow-x: hidden;
 }
+
+/* Example CSS for the sidebar */
+.offcanvas {
+    position: fixed;
+    width: 300px; /* Adjust the width of your sidebar */
+    height: 100%; /* or set a specific height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    background-color: white; /* Add your background color */
+    border-left: 1px solid #ccc; /* For visualization purposes */
+    z-index: 10000; /* Ensure it's above the main content */
+  }
+  
+  
