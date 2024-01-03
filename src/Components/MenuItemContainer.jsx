@@ -12,7 +12,7 @@ const MenuItemContainer = (props) => {
       <div className="detail-wrapper">
         {menuItems.map((menuItem) => (
           <MenuItem
-            imageSrc="../Images/soup1.jpg"
+            imageSrc={`../Images/MenuItemImages/${menuItem.menuItemName}.png`}
             names={menuItem.menuItemName}
             text="Lorem ipsum dolor sit amet consectetur adipisicing."
             prices={menuItem.menuItemPrice}

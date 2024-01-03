@@ -13,7 +13,7 @@ const RestaurantTable = (props) => {
       <img className="highlight-img" src={props.imageSrcs} alt="" />
       <div className="highlight-desc">
         <h4>{props.name}</h4>
-        <p>{props.status}</p>
+        <strong><p>{props.status}</p></strong>
       </div>
     </button>
   );

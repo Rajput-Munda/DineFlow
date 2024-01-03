@@ -13,21 +13,11 @@ const OrderItemsContainer = () => {
           <div className="heading">Subtotal</div>
         </div>
         <OrderItem name="PaneerTikka" quantity="2" subtotal="400.00" />
-        <OrderItem name="PaneerTikka" quantity="2" subtotal="400.00" />
-        <OrderItem name="PaneerTikka" quantity="2" subtotal="400.00" />
-        <OrderItem name="PaneerTikka" quantity="2" subtotal="400.00" />
-        <OrderItem name="PaneerTikka" quantity="2" subtotal="400.00" />
-        <OrderItem name="PaneerTikka" quantity="2" subtotal="400.00" />
-        <OrderItem name="PaneerTikka" quantity="2" subtotal="400.00" />
-        <OrderItem name="PaneerTikka" quantity="2" subtotal="400.00" />
-        <OrderItem name="PaneerTikka" quantity="2" subtotal="400.00" />
-        <OrderItem name="PaneerTikka" quantity="2" subtotal="400.00" />
-        <OrderItem name="PaneerTikka" quantity="2" subtotal="400.00" />
-        <OrderItem name="PaneerTikka" quantity="2" subtotal="400.00" />
+        <OrderItem name="Paneer Butter Masala" quantity="2" subtotal="400.00" />
         <div className="order-item total-subtotal">
           <div></div>
           <div></div>
-          <div className="subtotal">Total Subtotal: 2000</div>
+          <div className="subtotal">Total Subtotal: 800</div>
         </div>
       </div>
     </div>

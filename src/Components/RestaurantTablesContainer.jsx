@@ -1,41 +1,73 @@
-import '../Styles/RestaurantTableContainer.css';
+import "../Styles/RestaurantTableContainer.css";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
-import RestaurantTable from './RestaurantTable';
-import OrdersContainer from './OrdersContainer';
-import { useState } from 'react';
-
+import RestaurantTable from "./RestaurantTable";
+import { useEffect, useState } from "react";
+import CustomerDetailModal from "./CustomerDetailsModal";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchRestaurantTables } from "../State/RestaurantSlice";
 
 const RestaurantTablesContainer = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  
+  const [customerDetailsModalVisible, setCustomerDetailsModalVisible] =
+    useState(false);
+  const [selectedTable, setSelectedTable] = useState(null);
+  const restaurantTable = useSelector((state) => state.restaurant.restaurantTable);
+  const dispatch = useDispatch();
 
-
-  const openSidebar = () => {
-    setSidebarOpen(true);
+  const openCustomerDetailModal = (table) => {
+    setSelectedTable(table.tableId);
+    setCustomerDetailsModalVisible(true);
+  };
+  const closeCustomerDetailModal = () => {
+    setCustomerDetailsModalVisible(false);
   };
 
-  const closeSidebar = () => {
-    setSidebarOpen(false);
-  };
+  // const fetchRestaurantTables = async () => {
+  //   console.log("fetching tables");
+  //   await fetch(
+  //     "http://127.0.0.1:8080/restaurant-tables/getAllRestaurantTables",
+  //     {
+  //       method: "GET",
+  //     }
+  //   )
+  //     .then((response) => response.json())
+  //     .then((response) => {
+  //       console.log(response);
+  //       const extractedRestaurantTables = response;
+  //       setRestaurantTable(extractedRestaurantTables.map((table) => table));
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
+
+  useEffect(() => {
+    dispatch(fetchRestaurantTables());
+  }, [dispatch]);
 
   return (
     <>
-      {/* <!-- title section and arrow --> */}
       <div className="main-header">
         <h2 className="main-title">Tables</h2>
         <div className="main-arrow">
-          <FaChevronCircleLeft className="back"/>
-          <FaChevronCircleRight className="next"/>
+          <FaChevronCircleLeft className="back" />
+          <FaChevronCircleRight className="next" />
         </div>
       </div>
 
       <div className="highlight-wrapper">
-        <RestaurantTable name="Table 1" status="Reserved" imageSrcs="../Images/Salad1.jpg"  onClick={sidebarOpen ? closeSidebar : openSidebar} />
-        <RestaurantTable name="Table 2" status="Vacant" imageSrcs="../Images/coffee.jpg"  onClick={sidebarOpen ? closeSidebar : openSidebar} />
-        <RestaurantTable name="Table 3" status="Reserved" imageSrcs="../Images/pizza1.jpg"  onClick={sidebarOpen ? closeSidebar : openSidebar} />
-        <RestaurantTable name="Table 4" status="Reserved" imageSrcs="../Images/burger.jpg"  onClick={sidebarOpen ? closeSidebar : openSidebar} />              
-      </div>
-      <div className={sidebarOpen ? 'offcanvas offcanvas-start w-25 show' : 'offcanvas offcanvas-start w-25'} tabIndex="-1" id="offcanvas" data-bs-keyboard="false" data-bs-backdrop="false">
-        <OrdersContainer onClose={closeSidebar}/>
+        {restaurantTable.map((table) => (
+          <RestaurantTable
+            name={`Table ${table.tableId}`}
+            status={table.tableStatus ? "Reserved" : "Vaccant"}
+            imageSrcs={`../Images/TableImages/Table${table.tableId}.png`}
+            onClick={() => openCustomerDetailModal(table)}
+          />
+        ))}
+        <CustomerDetailModal
+          customerDetailModal={customerDetailsModalVisible}
+          open={openCustomerDetailModal}
+          handleClose={closeCustomerDetailModal}
+          tableId={selectedTable}
+        ></CustomerDetailModal>
       </div>
     </>
   );
