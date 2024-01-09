@@ -20,7 +20,7 @@ const OrderName = () => {
             <strong>{customerDetails}</strong>
           </div>
         ) : (
-          <div className="dateAndOrderId">Please Select Tabl</div>
+          <div className="dateAndOrderId">Please Select Table</div>
         )}
         {orderDate != null ? (
           <div className="dateAndOrderId">
