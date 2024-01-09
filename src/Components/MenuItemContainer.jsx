@@ -12,6 +12,7 @@ const MenuItemContainer = (props) => {
       <div className="detail-wrapper">
         {menuItems.map((menuItem) => (
           <MenuItem
+            key = {menuItem.menuItemId}
             imageSrc={`../Images/MenuItemImages/${menuItem.menuItemName}.png`}
             names={menuItem.menuItemName}
             text="Lorem ipsum dolor sit amet consectetur adipisicing."

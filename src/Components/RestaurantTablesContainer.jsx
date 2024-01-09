@@ -5,18 +5,20 @@ import { useEffect, useState } from "react";
 import CustomerDetailModal from "./CustomerDetailsModal";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRestaurantTables } from "../State/RestaurantSlice";
+import { fetchOrderDetails } from "../State/OrderSlice";
 
 const RestaurantTablesContainer = () => {
-  
   const [customerDetailsModalVisible, setCustomerDetailsModalVisible] =
     useState(false);
   const [selectedTable, setSelectedTable] = useState(null);
-  const restaurantTable = useSelector((state) => state.restaurant.restaurantTable);
+  const restaurantTable = useSelector(
+    (state) => state.restaurant.restaurantTable
+  );
   const dispatch = useDispatch();
 
-  const openCustomerDetailModal = (table) => {
+  const tableClicked = (table) => {
     setSelectedTable(table.tableId);
-    setCustomerDetailsModalVisible(true);
+    dispatch(fetchOrderDetails(table.tableId));
   };
   const closeCustomerDetailModal = () => {
     setCustomerDetailsModalVisible(false);
@@ -52,22 +54,23 @@ const RestaurantTablesContainer = () => {
           <FaChevronCircleRight className="next" />
         </div>
       </div>
-
+      {/* reserved for tablestatus 1(true)  */}
       <div className="highlight-wrapper">
         {restaurantTable.map((table) => (
           <RestaurantTable
+            key={table.tableId}
             name={`Table ${table.tableId}`}
             status={table.tableStatus ? "Reserved" : "Vaccant"}
             imageSrcs={`../Images/TableImages/Table${table.tableId}.png`}
-            onClick={() => openCustomerDetailModal(table)}
+            onClick={() => tableClicked(table)}
           />
         ))}
-        <CustomerDetailModal
+        {/* <CustomerDetailModal
           customerDetailModal={customerDetailsModalVisible}
           open={openCustomerDetailModal}
           handleClose={closeCustomerDetailModal}
           tableId={selectedTable}
-        ></CustomerDetailModal>
+        ></CustomerDetailModal> */}
       </div>
     </>
   );

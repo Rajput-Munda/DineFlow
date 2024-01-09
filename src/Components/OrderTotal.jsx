@@ -1,25 +1,25 @@
 import React from 'react';
-import '../Styles/OrderTotal.css'; // Import your CSS file
+import '../Styles/OrderTotal.css';
+import { useSelector } from 'react-redux';
 
 const OrderTotal = () => {
+  const subtotal = useSelector((state) => state.order.orderDetails.orderSubTotal)
+  const tax = useSelector((state) => state.order.orderDetails.tax)
+  const orderTotal = useSelector((state) => state.order.orderDetails.orderTotal)
   return (
     <div className="order-total">
       <div className="total-item">
         <span>Subtotal:</span>
-        <span>2000.00</span> {/* Replace with your actual subtotal value */}
+        <span>₹{subtotal}</span> 
       </div>
       <div className="total-item">
         <span>GST:</span>
-        <span>20.00</span> {/* Replace with your actual GST value */}
-      </div>
-      <div className="total-item">
-        <span>Discount:</span>
-        <span>50.00</span> {/* Replace with your actual discount value */}
+        <span>₹{tax}</span> 
       </div>
       <hr />
       <div className="total-item total-row">
         <span>Total:</span>
-        <span>370.00</span> {/* Replace with your actual total value */}
+        <span>₹{orderTotal}</span> 
       </div>
     </div>
   );

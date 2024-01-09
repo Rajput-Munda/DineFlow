@@ -32,6 +32,7 @@ const MenuCategoryContainer = ({ menuCategories, onSelectCategory }) => {
       <div class="filter-wrapper">
         {menuCategories.map((category) => (
           <MenuCategory
+            key = {category.menuCategoryId}
             icon={<FaUtensils />}
             names={category.menuCategoryName}
             onClick={handleCategorySelection}

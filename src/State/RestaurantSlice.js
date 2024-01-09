@@ -8,16 +8,17 @@ const initialState = {
 
 //fetchRestaurantTables function
 export const fetchRestaurantTables = createAsyncThunk(
-    "restaurant/fetchRestaurantTables",
-    async () => {
-      const response = await fetch("http://127.0.0.1:8080/restaurant-tables/getAllRestaurantTables", {
-            method: "GET",
-        });
-        return await response.json();
-    }
-  );
-  
-  
+  "restaurant/fetchRestaurantTables",
+  async () => {
+    const response = await fetch(
+      "http://127.0.0.1:8080/restaurant-tables/getAllRestaurantTables",
+      {
+        method: "GET",
+      }
+    );
+    return await response.json();
+  }
+);
 
 const RestaurantSlice = createSlice({
   name: "restaurant",
