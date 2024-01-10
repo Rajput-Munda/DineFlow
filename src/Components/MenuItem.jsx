@@ -1,8 +1,23 @@
 import '../Styles/MenuItem.css';
+import { useDispatch } from "react-redux";
+import { addMenuItemToCart } from "../State/OrderSlice";
 
 const MenuItem = (props) => {
+  const dispatch = useDispatch()
+  const addItem = () => {
+    dispatch(addMenuItemToCart({
+      menuItemId: {
+        menuItemId: props.names
+      },
+      quantity: 1,
+      subtotal: props.prices
+
+    }))
+  }
+
   return (
 
+    
     <>
       
     <div className="detail-card">
@@ -13,6 +28,8 @@ const MenuItem = (props) => {
            <p className="detail-sub">{props.text}</p>
            <p className="price">Rs.{props.prices}</p>
          </div>
+         <button onClick={addItem}>Add to Basket</button>
+
       
       </div>
     </div>

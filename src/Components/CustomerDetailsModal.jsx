@@ -1,8 +1,10 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { useDispatch } from "react-redux";
+import { setCustomerDetailsForVaccantTable } from "../State/OrderSlice";
 
 const style = {
   position: "absolute",
@@ -16,18 +18,27 @@ const style = {
   p: 4,
 };
 
-export default function CustomerDetailModal({
+const CustomerDetailsModal = ({
   customerDetailModal,
-  open,
   handleClose,
   tableId,
-}) {
-  if (!customerDetailModal) return null;
+}) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const dispatch = useDispatch();
+
+  const sendCustomerName = () =>{
+    const customerFullName = firstName.concat(' ', lastName)
+    console.log(customerFullName)
+    dispatch(setCustomerDetailsForVaccantTable({customerFullName, tableId}))
+    handleClose()
+  }
+
 
   return (
     <div>
       <Modal
-        open={open}
+        open={customerDetailModal}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -44,6 +55,7 @@ export default function CustomerDetailModal({
               placeholder="Enter First Name"
               fullWidth
               margin="normal"
+              onChange={(e) => setFirstName(e.target.value)}
             />
             <TextField
               id="lastName"
@@ -52,8 +64,9 @@ export default function CustomerDetailModal({
               placeholder="Enter Last Name"
               fullWidth
               margin="normal"
+              onChange={(e) => setLastName(e.target.value)}
             />
-            <Button variant="contained" color="primary" fullWidth>
+            <Button variant="contained" color="primary" fullWidth onClick={sendCustomerName}>
               Submit
             </Button>
           </form>
@@ -61,4 +74,6 @@ export default function CustomerDetailModal({
       </Modal>
     </div>
   );
-}
+};
+
+export default CustomerDetailsModal;

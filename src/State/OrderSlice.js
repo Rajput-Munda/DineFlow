@@ -14,9 +14,22 @@ export const fetchOrderDetails = createAsyncThunk("order/fetchOrderDetails", asy
     return await response.json();
 })
 
+
 const OrderSlice = createSlice({
     name: "Orders",
     initialState,
+    reducers: {
+        setCustomerDetailsForVaccantTable: (state, action) => {
+            state.orderDetails = {},
+            state.orderItems = [],
+            state.orderDetails = {...state, tableId: {tableId: action.payload.tableId}, customerName : action.payload.customerFullName}
+        },
+
+        addMenuItemToCart: (state, action) => {
+            state.orderItems.push(action.payload)
+        }
+
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchOrderDetails.pending, (state) => {
             state.loading = true;
@@ -31,10 +44,12 @@ const OrderSlice = createSlice({
             state.error = action.error.message
         })
 
+        
+
     }
 })
 
-export const { reducer: orderReducer } = OrderSlice;
+export const { reducer: orderReducer , actions: { setCustomerDetailsForVaccantTable, addMenuItemToCart } } = OrderSlice;
 export default OrderSlice.reducer;
 
 

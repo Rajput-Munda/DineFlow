@@ -8,12 +8,19 @@ const OrderName = () => {
   );
   const orderDate = useSelector((state) => state.order.orderDetails.orderDate);
   const orderId = useSelector((state) => state.order.orderDetails.orderId);
+  const tableId = useSelector((state) => state.order.orderDetails.tableId)
 
   return (
     <>
       <div className="order-detail">
         <h4>
-          <strong>Order Details</strong>
+          <strong>Order Details: </strong>
+          {
+            tableId != null ? (
+              <strong>Table {tableId.tableId}</strong>
+            ): (<>
+            </>)
+          }
         </h4>
         {customerDetails != null ? (
           <div>

@@ -2,7 +2,7 @@ import "../Styles/RestaurantTableContainer.css";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import RestaurantTable from "./RestaurantTable";
 import { useEffect, useState } from "react";
-import CustomerDetailModal from "./CustomerDetailsModal";
+import CustomerDetailsModal from "./CustomerDetailsModal";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRestaurantTables } from "../State/RestaurantSlice";
 import { fetchOrderDetails } from "../State/OrderSlice";
@@ -18,9 +18,17 @@ const RestaurantTablesContainer = () => {
 
   const tableClicked = (table) => {
     setSelectedTable(table.tableId);
-    dispatch(fetchOrderDetails(table.tableId));
+    if(table.tableStatus == 0){
+      openCustomerDetailsModal()
+    }
+    else{
+      dispatch(fetchOrderDetails(table.tableId));
+    }
   };
-  const closeCustomerDetailModal = () => {
+  const openCustomerDetailsModal = () => {
+    setCustomerDetailsModalVisible(true);
+  }
+  const closeCustomerDetailsModal = () => {
     setCustomerDetailsModalVisible(false);
   };
 
@@ -65,12 +73,12 @@ const RestaurantTablesContainer = () => {
             onClick={() => tableClicked(table)}
           />
         ))}
-        {/* <CustomerDetailModal
+        <CustomerDetailsModal
           customerDetailModal={customerDetailsModalVisible}
-          open={openCustomerDetailModal}
-          handleClose={closeCustomerDetailModal}
+          open={openCustomerDetailsModal}
+          handleClose={closeCustomerDetailsModal}
           tableId={selectedTable}
-        ></CustomerDetailModal> */}
+        ></CustomerDetailsModal>
       </div>
     </>
   );
