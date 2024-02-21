@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import OrderItem from "./OrderItem";
 import "../Styles/OrderItemsContainer.css"; 
-import { useSelector } from "react-redux";
 
-const OrderItemsContainer = () => {
-  const orderItems = useSelector((state) => state.order.orderItems)
-  const subtotal = useSelector((state) => state.order.orderDetails.orderSubTotal)
+const OrderItemsContainer = (props) => {
+ const orderItems = props.orderItems
+ const subtotal = props.subtotal
+  
   return (
     <div className="order-container">
       <h4><strong>Order Items</strong></h4>
@@ -19,6 +19,7 @@ const OrderItemsContainer = () => {
           orderItems.map((orderItem, index) => (
             <OrderItem
               key={index}
+              index={index}
               name={orderItem.menuItemId.menuItemName}
               quantity={orderItem.quantity}
               subtotal={orderItem.subtotal}

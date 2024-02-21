@@ -18,16 +18,15 @@ const RestaurantTablesContainer = () => {
 
   const tableClicked = (table) => {
     setSelectedTable(table.tableId);
-    if(table.tableStatus == 0){
-      openCustomerDetailsModal()
-    }
-    else{
+    if (table.tableStatus == 0) {
+      openCustomerDetailsModal();
+    } else {
       dispatch(fetchOrderDetails(table.tableId));
     }
   };
   const openCustomerDetailsModal = () => {
     setCustomerDetailsModalVisible(true);
-  }
+  };
   const closeCustomerDetailsModal = () => {
     setCustomerDetailsModalVisible(false);
   };

@@ -2,13 +2,11 @@ import React from "react";
 import "../Styles/OrderName.css";
 import { useSelector } from "react-redux";
 
-const OrderName = () => {
-  const customerDetails = useSelector(
-    (state) => state.order.orderDetails.customerName
-  );
-  const orderDate = useSelector((state) => state.order.orderDetails.orderDate);
-  const orderId = useSelector((state) => state.order.orderDetails.orderId);
-  const tableId = useSelector((state) => state.order.orderDetails.tableId)
+const OrderName = (props) => {
+  const customerDetails = props.customerDetails
+  const orderDate = props.orderDate
+  const orderId = props.orderId
+  const tableId = props.tableId
 
   return (
     <>

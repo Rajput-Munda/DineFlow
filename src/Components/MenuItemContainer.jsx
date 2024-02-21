@@ -14,6 +14,7 @@ const MenuItemContainer = (props) => {
         {menuItems.map((menuItem) => (
           <MenuItem
             key = {menuItem.menuItemId}
+            id = {menuItem.menuItemId}
             imageSrc={`../Images/MenuItemImages/${menuItem.menuItemName}.png`}
             names={menuItem.menuItemName}
             text="Lorem ipsum dolor sit amet consectetur adipisicing."
