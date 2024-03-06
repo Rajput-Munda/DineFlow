@@ -1,27 +1,28 @@
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import OrderContainer from "./Components/OrdersContainer";
-import Navbar from "./Components/Navbar";
-import RestaurantTablesContainer from "./Components/RestaurantTablesContainer";
-import MenuContainer from "./Components/MenuContainer";
+import OrdersPage from "./Components/OrdersPage";
+import AdminPanel from "./Components/AdminPanel";
+import AdminPanelUsers from "./Components/AdminPanelUsers";
+import AdminPanelMenuItems from "./Components/AdminPanelMenuItems";
+import AdminPanelMenuCategories from "./Components/AdminPanelMenuCategories";
 
 function App() {
   return (
-    <div className="maincontent">
-      
-      <OrderContainer></OrderContainer>
-
-      <div className="main">
-        <Navbar />
-        <div className="main-highlight">
-          <RestaurantTablesContainer />
-        </div>
-        <div className="main-menus">
-          <MenuContainer />
-        </div>
+    <Router>
+      <div>
+        <Routes>
+          <Route path="/" element={<OrdersPage />} />
+          <Route path="/adminpanel/" element={<><AdminPanel /></>} ></Route>
+          <Route path="/adminpanel/Users" element={<><AdminPanel /> <AdminPanelUsers /></>} ></Route>
+          <Route path="/adminpanel/MenuCategories" element={<><AdminPanel /> <AdminPanelMenuCategories /> </>} ></Route>
+          <Route path="/adminpanel/MenuItems" element={<><AdminPanel /><AdminPanelMenuItems /></>} ></Route>
+          <Route path="/adminpanel/Orders" element={<><AdminPanel /></>} ></Route>
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 }
 

@@ -1,4 +1,5 @@
 import { FaSearch } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -21,7 +22,7 @@ const Navbar = () => {
           </button>
 
           <form className="d-flex" role="search">
-            <span class="input-group-text" id="basic-addon1">
+            <span className="input-group-text" id="basic-addon1">
               <FaSearch />
             </span>
             <input
@@ -35,14 +36,14 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
+                <Link to ="/" className="nav-link active" aria-current="page">
                   Home
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
+                <Link to= "/adminpanel" className="nav-link active" aria-current="page">
                   Admin Panel
-                </a>
+                </Link>                     
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">

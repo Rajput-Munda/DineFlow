@@ -1,0 +1,23 @@
+.adminPanel {
+  width: 100%;
+  display: flex;
+}
+.adminPanelMain {
+  width: 100%;
+  padding: 2%;
+  background-color: var(--softGreenColor);
+}
+
+.adminPanelList {
+  margin: 10px;
+  padding: 0;
+  overflow: hidden;
+  list-style-type: none;
+  align-self: center;
+}
+
+.adminPanelListOption{
+    float: left;
+    padding: 16px;
+}
+
