@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import moment from 'moment'
+import moment from "moment";
 
 const initialState = {
   loading: false,
   orderDetails: {},
   orderItems: [],
-  reservedTable:false,
+  reservedTable: false,
   error: "",
 };
 
@@ -47,7 +47,23 @@ export const placeOrder = createAsyncThunk(
   }
 );
 
-
+export const updateOrder = createAsyncThunk(
+  "orders/updateOrder",
+  async({orderDetails, orderItems}) => {
+    const response = await fetch('http://127.0.0.1:8080/orders/updateOrder',{
+      method: "POST",
+      body: JSON.stringify({
+        order: orderDetails,
+        orderItems: orderItems,
+      }),
+      headers: {
+        "Content-type": "application/json",
+      }
+    });
+    fetchOrderDetails();
+    return response.json();
+  }
+)
 
 const OrderSlice = createSlice({
   name: "Orders",
@@ -64,10 +80,29 @@ const OrderSlice = createSlice({
     },
 
     addMenuItemToCart: (state, action) => {
-      state.orderItems.push(action.payload);
+      if (state.orderItems.length != 0) {
+        var objIndex = state.orderItems.findIndex(
+          (obj) =>
+            obj.menuItemId.menuItemId == action.payload.menuItemId.menuItemId
+        );
+        if (objIndex != -1) {
+          action.payload.quantity += state.orderItems[objIndex].quantity;
+          action.payload.subtotal += state.orderItems[objIndex].subtotal;
+          state.orderItems.splice(objIndex,1)
+          state.orderItems.push(action.payload);
+        } else {
+          state.orderItems.push(action.payload);
+        }
+      } else {
+        state.orderItems.push(action.payload);
+      }
+      console.log("obj index", objIndex);
       state.orderDetails.orderSubTotal = getSubtotal(state.orderItems);
       state.orderDetails.tax = calculateTaxes(state.orderDetails.orderSubTotal);
-      state.orderDetails.orderTotal = calculateTotal(state.orderDetails.orderSubTotal,state.orderDetails.tax)
+      state.orderDetails.orderTotal = calculateTotal(
+        state.orderDetails.orderSubTotal,
+        state.orderDetails.tax
+      );
     },
 
     removeMenuItemFromCart: (state, action) => {
@@ -93,46 +128,54 @@ const OrderSlice = createSlice({
     builder.addCase(fetchOrderDetails.fulfilled, (state, action) => {
       (state.loading = false),
         (state.orderDetails = action.payload.order),
-        (state.reservedTable =true),
+        (state.reservedTable = true),
         (state.orderItems = action.payload.orderItems);
     });
     builder.addCase(fetchOrderDetails.rejected, (state, action) => {
       (state.loading = false), (state.error = action.error.message);
     });
-    builder.addCase(placeOrder.pending, (state, action) => {
+    builder.addCase(placeOrder.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(placeOrder.fulfilled, (state, action) => {
-      window.location.reload()
-      
+    builder.addCase(placeOrder.fulfilled, () => {
+      window.location.reload();
     });
     builder.addCase(placeOrder.rejected, (state, action) => {
-      state.loading = false,
-      state.error = action.error.message
+      (state.loading = false), (state.error = action.error.message);
+    });
+    builder.addCase(updateOrder.pending, (state) =>{
+      (state.loading = true)
+    })
+    builder.addCase(updateOrder.fulfilled, (state) => {
+      (state.loading = false);
+    })
+    builder.addCase(updateOrder.rejected, (state, action) => {
+      (state.loading = false),
+      (state.error = action.error.message)
     })
   },
 });
 
 const getSubtotal = (orderItems) => {
-  let sum =0;
-  for(let o of orderItems){
+  let sum = 0;
+  for (let o of orderItems) {
     console.log(o);
-    sum+=o.subtotal
+    sum += o.subtotal;
   }
-  console.log(sum)
-  return sum
-}
+  console.log(sum);
+  return sum;
+};
 
 const calculateTaxes = (subtotal) => {
-  console.log(subtotal)
+  console.log(subtotal);
   let tax = 0.05 * subtotal;
   return tax;
-}
+};
 
-const calculateTotal = (subtotal,tax) => {
+const calculateTotal = (subtotal, tax) => {
   let total = subtotal + tax;
   return total;
-}
+};
 
 export const {
   reducer: orderReducer,
