@@ -1,0 +1,14 @@
+.custom-input {
+    border: none;
+    border-bottom: 1px solid #000; /* Underline style */
+    margin-bottom: 10px; /* Add margin between inputs */
+    padding: 5px; /* Add padding for better appearance */
+    width: 100%; /* Set width to fill container */
+  }
+  
+  .input-container {
+    margin-bottom: 20px; /* Add margin to separate input groups */
+  }
+  
+  /* Additional CSS can be added for further customization */
+  

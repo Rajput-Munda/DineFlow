@@ -3,11 +3,13 @@ import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import "../Styles/AdminPanelMenuCategories.css";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import EditMenuItemModal from "./EditMenuItemModal";
 
 export default function AdminPanelMenuItems() {
   const [menuItems, setMenuItems] = useState([]);
-  const [selectedItemForDeletion, setSelectedItemForDeletion] = useState();
+  const [selectedItem, setSelectedItem] = useState();
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
+  const [showEditMenuItemModal, setShowMenuItemModal] = useState(false);
 
   const handleCloseConfirmDeleteModal = () => {
     setShowConfirmDeleteModal(false);
@@ -18,9 +20,30 @@ export default function AdminPanelMenuItems() {
   };
 
   const handleDeleteItem = (item) => {
-    setSelectedItemForDeletion(item);
+    setSelectedItem(item);
     handleShowConfirmDeleteModal();
   };
+
+  const handleEditItem = (item) => {
+    setSelectedItem(item);
+    handleShowEditMenuItemModal()
+  }
+
+  const handleShowEditMenuItemModal = () => {
+    setShowMenuItemModal(true);
+  }
+
+  const handleCloseEditMenuItemModal = () => {
+    setShowMenuItemModal(false);
+    fetchMenuItems()
+  }
+
+  const handleSaveEditedItem = (editedItem) => {
+    console.log(editedItem)
+    updateMenuItem(editedItem)
+  }
+
+  
 
   const deleteMenuItem = async (item) => {
     try {
@@ -54,6 +77,21 @@ export default function AdminPanelMenuItems() {
     }
   };
 
+  const updateMenuItem = async (editedItem) => {
+    console.log(selectedItem.menuItemId)
+    await fetch(`http://127.0.0.1:8080/menu-items/updateMenuItem?menu_item_id=${selectedItem.menuItemId}`, {
+      method: "POST",
+      body: JSON.stringify(editedItem)
+      ,
+      headers: {
+        "Content-type" : "application/json"
+      }
+    })
+    .then((response) => response.json())
+    .then(await fetchMenuItems())
+    .catch((e) => console.log(e))
+  }
+
   useEffect(() => {
     fetchMenuItems();
   }, []);
@@ -65,7 +103,7 @@ export default function AdminPanelMenuItems() {
           <tr>
             <th>Sr.No</th>
             <th>MenuItemId</th>
-            <th>MenuCategoryId</th>
+            <th>Category</th>
             <th>Name</th>
             <th>Price</th>
             <th>Description</th>
@@ -78,7 +116,7 @@ export default function AdminPanelMenuItems() {
             <tr key={item.menuItemId}>
               <td>{index + 1}</td>
               <td>{item.menuItemId}</td>
-              <td>{item.menuCategoryId.menuCategoryId}</td>
+              <td>{item.menuCategoryId.menuCategoryName}</td>
               <td>{item.menuItemName}</td>
               <td>₹{item.menuItemPrice}</td>
               <td>{item.menuItemDescription}</td>
@@ -87,7 +125,7 @@ export default function AdminPanelMenuItems() {
                 <span onClick={() => handleDeleteItem(item)}>
                   <MdDelete />
                 </span>{" "}
-                <span>
+                <span onClick={() => handleEditItem(item)}>
                   <FaRegEdit />
                 </span>
               </td>
@@ -98,9 +136,15 @@ export default function AdminPanelMenuItems() {
       <ConfirmDeleteModal
         showConfirmDeleteModal={showConfirmDeleteModal}
         handleCloseConfirmDeleteModal={handleCloseConfirmDeleteModal}
-        item={selectedItemForDeletion}
+        item={selectedItem}
         category={null}
         deleteMenuItem={deleteMenuItem}
+      />
+      <EditMenuItemModal 
+      showEditMenuItemModal={showEditMenuItemModal}
+      handleCloseEditMenuItemModal = {handleCloseEditMenuItemModal}
+      item = {selectedItem}
+      onSaveChanges={handleSaveEditedItem}
       />
     </div>
   );
