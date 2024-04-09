@@ -1,0 +1,38 @@
+/* AdminPanelOrderItem.css */
+.order-item-card {
+  background-color: #f9f9f9;
+  margin: 10px; /* Reduced margin */
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 15px; /* Reduced padding */
+  margin-bottom: 15px; /* Reduced margin */
+}
+
+.order-item-card h5,
+.order-item-card h6 {
+  margin: 3px 0; /* Reduced margin */
+  color: #333;
+}
+
+.order-item-card h6 {
+  font-weight: bold;
+}
+
+.order-item-card h5 {
+  margin: 10px 0; /* Reduced margin */
+  color: #666;
+}
+
+.order-value {
+  font-weight: normal;
+  color: #888; /* Separate styling for the values */
+}
+
+.order-item-container {
+  margin-top: 5px; /* Reduced margin */
+}
+
+.order-item {
+  margin-bottom: 3px; /* Reduced margin */
+  list-style-type: none;
+}

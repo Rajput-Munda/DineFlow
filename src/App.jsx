@@ -8,6 +8,7 @@ import AdminPanel from "./Components/AdminPanel";
 import AdminPanelUsers from "./Components/AdminPanelUsers";
 import AdminPanelMenuItems from "./Components/AdminPanelMenuItems";
 import AdminPanelMenuCategories from "./Components/AdminPanelMenuCategories";
+import AdminPanelOrderContainer from "./Components/AdminPanelOrderContainer";
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
           <Route path="/adminpanel/Users" element={<><AdminPanel /> <AdminPanelUsers /></>} ></Route>
           <Route path="/adminpanel/MenuCategories" element={<><AdminPanel /> <AdminPanelMenuCategories /> </>} ></Route>
           <Route path="/adminpanel/MenuItems" element={<><AdminPanel /><AdminPanelMenuItems /></>} ></Route>
-          <Route path="/adminpanel/Orders" element={<><AdminPanel /></>} ></Route>
+          <Route path="/adminpanel/Orders" element={<><AdminPanel /> <AdminPanelOrderContainer /></>} ></Route>
         </Routes>
       </div>
     </Router>
