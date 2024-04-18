@@ -22,7 +22,6 @@ const MenuContainer = () => {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         const categoryData = response;
         const extractedCategories = categoryData.map((item) => item);
         setMenuCategories(extractedCategories);
@@ -37,18 +36,15 @@ const MenuContainer = () => {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         const itemData = response;
         const extractedItems = itemData.map((item) => item);
         setMenuItems(extractedItems);
-        console.log("First Time --->", { filteredMenuItems });
       })
       .catch((error) => console.log(error));
   };
 
   //function to filter out the menuItems based on menuCategory
   const filterMenuItems = () => {
-    console.log("Filtering Data");
     if (selectedCategory === "" || selectedCategory === "All Items") {
       setFilteredMenuItems(menuItems.map((item) => item));
     } else {
@@ -69,7 +65,6 @@ const MenuContainer = () => {
   //whenever selectedCategory changes or maybe the page loads for the first time and menuItems are populated filter
   //out the menuItems accordingly.
   useEffect(() => {
-    console.log(selectedCategory);
     filterMenuItems();
   }, [selectedCategory, menuItems]);
 

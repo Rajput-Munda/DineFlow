@@ -15,9 +15,9 @@ const MenuItemContainer = (props) => {
           <MenuItem
             key = {menuItem.menuItemId}
             id = {menuItem.menuItemId}
-            imageSrc={`../Images/MenuItemImages/${menuItem.menuItemName}.png`}
+            imageSrc={`../Images/MenuItemImages/Virgin Mojito.png`}
             names={menuItem.menuItemName}
-            text="Lorem ipsum dolor sit amet consectetur adipisicing."
+            text={menuItem.menuItemDescription}
             prices={menuItem.menuItemPrice}
             onClick = {() => addItem(menuItem)}
           />
