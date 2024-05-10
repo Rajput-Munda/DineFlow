@@ -23,7 +23,7 @@
 }
 
 .main {
-  width: calc(100% - 200px); /* Consider the OrderContainer width */
+  width: calc(100% - 300px); /* Consider the OrderContainer width */
   height: max-content;
   min-height: 100vh;
   padding: 2%;

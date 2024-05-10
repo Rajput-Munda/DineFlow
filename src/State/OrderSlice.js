@@ -49,8 +49,8 @@ export const placeOrder = createAsyncThunk(
 
 export const updateOrder = createAsyncThunk(
   "orders/updateOrder",
-  async({orderDetails, orderItems}) => {
-    const response = await fetch('http://127.0.0.1:8080/orders/updateOrder',{
+  async ({ orderDetails, orderItems }) => {
+    const response = await fetch("http://127.0.0.1:8080/orders/updateOrder", {
       method: "POST",
       body: JSON.stringify({
         order: orderDetails,
@@ -58,12 +58,46 @@ export const updateOrder = createAsyncThunk(
       }),
       headers: {
         "Content-type": "application/json",
-      }
+      },
     });
     fetchOrderDetails();
     return response.json();
   }
-)
+);
+
+export const sendPaymentLink = createAsyncThunk(
+  "orders/sendPaymentLink",
+  async ({orderDetails}) => {
+    console.log("sending payment link")
+    const response = await fetch(
+      "http://127.0.0.1:8080/payments/createPaymentLink",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          amount: orderDetails.orderTotal,
+          amountPaid: 0,
+          callbackMethod: "get",
+          callbackUrl: "https://example-callback-url.com/",
+          cancelledAt: 0,
+          customerName: orderDetails.customerName,
+          customerContactNumber: orderDetails.phoneNo.toString(),
+          customerEmail: orderDetails.email,
+          description: `Payment for Order No.  ${orderDetails.orderId}`,
+          expireBy: Date.now() + 15 * 60,
+          expiredAt: 0,
+          firstMinPartialAmount: 100,
+          notifyEmail: true,
+          notifySms: true,
+          referenceId: orderDetails.orderId,
+        }),
+        headers: {
+          "Content-type": "application/json",
+        },
+      }
+    );
+    return response.json();
+  }
+);
 
 const OrderSlice = createSlice({
   name: "Orders",
@@ -76,6 +110,8 @@ const OrderSlice = createSlice({
         (state.orderDetails = {
           tableId: { tableId: action.payload.tableId },
           customerName: action.payload.customerFullName,
+          phoneNo: action.payload.phoneNo,
+          email: action.payload.email,
         });
     },
 
@@ -88,7 +124,7 @@ const OrderSlice = createSlice({
         if (objIndex != -1) {
           action.payload.quantity += state.orderItems[objIndex].quantity;
           action.payload.subtotal += state.orderItems[objIndex].subtotal;
-          state.orderItems.splice(objIndex,1)
+          state.orderItems.splice(objIndex, 1);
           state.orderItems.push(action.payload);
         } else {
           state.orderItems.push(action.payload);
@@ -143,16 +179,24 @@ const OrderSlice = createSlice({
     builder.addCase(placeOrder.rejected, (state, action) => {
       (state.loading = false), (state.error = action.error.message);
     });
-    builder.addCase(updateOrder.pending, (state) =>{
-      (state.loading = true)
-    })
+    builder.addCase(updateOrder.pending, (state) => {
+      state.loading = true;
+    });
     builder.addCase(updateOrder.fulfilled, (state) => {
-      (state.loading = false);
-    })
+      state.loading = false;
+    });
     builder.addCase(updateOrder.rejected, (state, action) => {
-      (state.loading = false),
-      (state.error = action.error.message)
-    })
+      (state.loading = false), (state.error = action.error.message);
+    });
+    builder.addCase(sendPaymentLink.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(sendPaymentLink.fulfilled, (state) => {
+      state.loading = false;
+    });
+    builder.addCase(sendPaymentLink.rejected, (state, action) => {
+      (state.loading = false), (state.error = action.error.message);
+    });
   },
 });
 
@@ -169,7 +213,7 @@ const getSubtotal = (orderItems) => {
 const calculateTaxes = (subtotal) => {
   console.log(subtotal);
   let tax = 0.05 * subtotal;
-  return tax;
+  return Number(tax.toFixed(2));
 };
 
 const calculateTotal = (subtotal, tax) => {

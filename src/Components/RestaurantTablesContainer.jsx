@@ -1,7 +1,7 @@
 import "../Styles/RestaurantTableContainer.css";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import RestaurantTable from "./RestaurantTable";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CustomerDetailsModal from "./CustomerDetailsModal";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRestaurantTables } from "../State/RestaurantSlice";
@@ -15,6 +15,7 @@ const RestaurantTablesContainer = () => {
     (state) => state.restaurant.restaurantTable
   );
   const dispatch = useDispatch();
+  const containerRef = useRef(null)
 
   const tableClicked = (table) => {
     setSelectedTable(table.tableId);
@@ -31,22 +32,18 @@ const RestaurantTablesContainer = () => {
     setCustomerDetailsModalVisible(false);
   };
 
-  // const fetchRestaurantTables = async () => {
-  //   console.log("fetching tables");
-  //   await fetch(
-  //     "http://127.0.0.1:8080/restaurant-tables/getAllRestaurantTables",
-  //     {
-  //       method: "GET",
-  //     }
-  //   )
-  //     .then((response) => response.json())
-  //     .then((response) => {
-  //       console.log(response);
-  //       const extractedRestaurantTables = response;
-  //       setRestaurantTable(extractedRestaurantTables.map((table) => table));
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
+  const scrollLeft = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollLeft -= 200; // Adjust the scroll distance as needed
+    }
+  };
+
+  // Scroll right
+  const scrollRight = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollLeft += 200; // Adjust the scroll distance as needed
+    }
+  };
 
   useEffect(() => {
     dispatch(fetchRestaurantTables());
@@ -57,12 +54,12 @@ const RestaurantTablesContainer = () => {
       <div className="main-header">
         <h2 className="main-title">Tables</h2>
         <div className="main-arrow">
-          <FaChevronCircleLeft className="back" />
-          <FaChevronCircleRight className="next" />
+          <FaChevronCircleLeft className="back" onClick={scrollLeft} />
+          <FaChevronCircleRight className="next" onClick={scrollRight} />
         </div>
       </div>
       {/* reserved for tablestatus 1(true)  */}
-      <div className="highlight-wrapper">
+      <div className="highlight-wrapper" ref={containerRef}>
         {restaurantTable.map((table) => (
           <RestaurantTable
             key={table.tableId}

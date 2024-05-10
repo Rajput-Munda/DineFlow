@@ -35,6 +35,10 @@ function App() {
       console.log("Received order placed message:", message.body);
       dispatch(fetchRestaurantTables());
     });
+    stompClient.subscribe("/topic/payment-made", (message) => {
+      console.log("Received successfull payment message :", message.body);
+      dispatch(fetchRestaurantTables());
+    })
   };
 
   const onError = (err) => {

@@ -7,6 +7,8 @@ const OrderName = (props) => {
   const orderDate = props.orderDate
   const orderId = props.orderId
   const tableId = props.tableId
+  const email = props.email
+  const phoneNo = props.phoneNo
 
   return (
     <>
@@ -22,8 +24,12 @@ const OrderName = (props) => {
         </h4>
         {customerDetails != null ? (
           <div>
-            <strong>{customerDetails}</strong>
+            <strong>{customerDetails}</strong><br></br>
+            <strong>{email}</strong><br></br>
+            <strong>{phoneNo}</strong>
+
           </div>
+          
         ) : (
           <div className="dateAndOrderId">Please Select Table</div>
         )}

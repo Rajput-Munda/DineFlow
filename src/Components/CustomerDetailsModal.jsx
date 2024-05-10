@@ -25,12 +25,17 @@ const CustomerDetailsModal = ({
 }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNo, setPhoneNo] = useState("");
   const dispatch = useDispatch();
 
   const sendCustomerName = () =>{
     const customerFullName = firstName.concat(' ', lastName)
     console.log(customerFullName)
-    dispatch(setCustomerDetailsForVaccantTable({customerFullName, tableId}))
+    console.log(email)
+    console.log(phoneNo)
+
+    dispatch(setCustomerDetailsForVaccantTable({customerFullName, tableId, email, phoneNo}))
     handleClose()
   }
 
@@ -65,6 +70,24 @@ const CustomerDetailsModal = ({
               fullWidth
               margin="normal"
               onChange={(e) => setLastName(e.target.value)}
+            />
+            <TextField
+              id="phone"
+              label="Phone No"
+              variant="outlined"
+              placeholder="Enter Phone No."
+              fullWidth
+              margin="normal"
+              onChange={(e) => setPhoneNo(e.target.value)}
+            />
+            <TextField
+              id="email"
+              label="Email"
+              variant="outlined"
+              placeholder="Enter Email"
+              fullWidth
+              margin="normal"
+              onChange={(e) => setEmail(e.target.value)}
             />
             <Button variant="contained" color="primary" fullWidth onClick={sendCustomerName}>
               Submit
