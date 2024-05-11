@@ -45,6 +45,11 @@ const Navbar = () => {
                   Admin Panel
                 </Link>                     
               </li>
+              <li className="nav-item">
+                <Link to= "/kitchenSchedule" className="nav-link active" aria-current="page">
+                  Kitchen Schedule
+                </Link>                     
+              </li>
             </ul>
           </div>
         </div>

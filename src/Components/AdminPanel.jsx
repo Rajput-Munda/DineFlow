@@ -10,9 +10,6 @@ export default function AdminPanel() {
         <Navbar></Navbar>
         <ul className="adminPanelList">
           <li className="adminPanelListOption">
-            <Link to="/adminpanel/Users">Users</Link>
-          </li>
-          <li className="adminPanelListOption">
             <Link to="/adminpanel/MenuCategories">Menu Cateogries</Link>
           </li>
           <li className="adminPanelListOption">

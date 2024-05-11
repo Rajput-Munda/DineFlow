@@ -8,15 +8,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import OrdersPage from "./Components/OrdersPage";
 import AdminPanel from "./Components/AdminPanel";
-import AdminPanelUsers from "./Components/AdminPanelUsers";
 import AdminPanelMenuItems from "./Components/AdminPanelMenuItems";
 import AdminPanelMenuCategories from "./Components/AdminPanelMenuCategories";
 import AdminPanelOrderContainer from "./Components/AdminPanelOrderContainer";
 import { useDispatch } from "react-redux";
 import { fetchRestaurantTables } from "./State/RestaurantSlice";
+import { KitchenSchedule } from "./Components/KitchenSchedule";
+import Navbar from "./Components/Navbar";
 
 function App() {
-  
   useEffect(() => {
     connect();
   }, []);
@@ -38,7 +38,7 @@ function App() {
     stompClient.subscribe("/topic/payment-made", (message) => {
       console.log("Received successfull payment message :", message.body);
       dispatch(fetchRestaurantTables());
-    })
+    });
   };
 
   const onError = (err) => {
@@ -51,18 +51,19 @@ function App() {
         <Routes>
           <Route path="/" element={<OrdersPage />} />
           <Route
+            path="/kitchenSchedule"
+            element={
+              <>
+                <Navbar /> <KitchenSchedule />{" "}
+              </>
+            }
+          />
+
+          <Route
             path="/adminpanel/"
             element={
               <>
                 <AdminPanel />
-              </>
-            }
-          ></Route>
-          <Route
-            path="/adminpanel/Users"
-            element={
-              <>
-                <AdminPanel /> <AdminPanelUsers />
               </>
             }
           ></Route>
