@@ -1,25 +1,19 @@
 import React from "react";
 import "../Styles/KitchenScheduleItem.css";
+import { useDispatch } from "react-redux";
+import { startPreparingOrder } from "../State/OrderSlice";
 
 export default function KitchenScheduleItem(props) {
-  const getMenuCategory = async () => {
-    try {
-      await fetch(
-        `http://127.0.0.1:8080/order/startPreparingOrder?orderId=${props.orderId}`,
-        {
-          method: "POST",
-        }
-      );
-      window.location.reload();
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const dispatch = useDispatch();
+
   return (
     <div className="order-item-card">
       <h5>
         Order ID#<span className="order-value">{props.orderId}</span>
       </h5>
+      <h6>
+        Table: <span className="order-value">{props.tableId.tableId}</span>
+      </h6>
       <h6>
         Order Date: <span className="order-value">{props.orderDate}</span>
       </h6>
@@ -38,7 +32,7 @@ export default function KitchenScheduleItem(props) {
         <button
           className="pay-now-btn"
           onClick={() => {
-            getMenuCategory();
+            dispatch(startPreparingOrder({orderId: props.orderId}))
           }}
         >
           Start Preparing

@@ -1,0 +1,53 @@
+/* EditMenuCategoryModal.css */
+
+/* Modal container */
+.edit-menu-category-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Modal content */
+  .edit-menu-category-modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    width: 400px;
+  }
+  
+  /* Close button */
+  .edit-menu-category-modal-close {
+    color: #aaa;
+    cursor: pointer;
+    font-size: 20px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+  }
+  
+  /* Input fields */
+  .edit-menu-category-modal-input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    padding: 10px;
+    width: 100%;
+  }
+  
+  /* Save button */
+  .edit-menu-category-modal-save {
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+  
+  .edit-menu-category-modal-save:hover {
+    background-color: #0056b3;
+  }
+  

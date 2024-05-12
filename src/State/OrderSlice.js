@@ -6,8 +6,33 @@ const initialState = {
   orderDetails: {},
   orderItems: [],
   reservedTable: false,
+  kitchenOrders: [],
   error: "",
 };
+
+export const getItemsForKitchenScheduling = createAsyncThunk(
+  "order/getItemsForKitchenScheduling",
+  async () => {
+    const response = await fetch(
+      `http://127.0.0.1:8080/orders/getItemsForKitchenScheduling`,
+      {
+        method: "GET",
+      }
+    )
+    return response.json() 
+  }
+);
+
+export const startPreparingOrder = createAsyncThunk(
+  "orders/startPreparingOrder",
+  async ({orderId}) => {
+    const response = await fetch(`http://127.0.0.1:8080/orders/startPreparingOrder?orderId=${orderId}`, {
+      method: "POST",
+    });
+    getItemsForKitchenScheduling();
+    return response.json();
+  }
+);
 
 export const fetchOrderDetails = createAsyncThunk(
   "order/fetchOrderDetails",
@@ -17,8 +42,8 @@ export const fetchOrderDetails = createAsyncThunk(
       {
         method: "GET",
       }
-    );
-    return await response.json();
+    )
+    return response.json()
   }
 );
 
@@ -197,6 +222,25 @@ const OrderSlice = createSlice({
     builder.addCase(sendPaymentLink.rejected, (state, action) => {
       (state.loading = false), (state.error = action.error.message);
     });
+    builder.addCase(getItemsForKitchenScheduling.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(getItemsForKitchenScheduling.fulfilled, (state, action) => {
+      state.kitchenOrders = action.payload
+      state.loading = false;
+    });
+    builder.addCase(getItemsForKitchenScheduling.rejected, (state, action) => {
+      (state.loading = false), (state.error = action.error.message);
+    });
+    builder.addCase(startPreparingOrder.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(startPreparingOrder.fulfilled, (state) => {
+      state.loading = false;
+    });
+    builder.addCase(startPreparingOrder.rejected, (state, action) => {
+      (state.loading = false), (state.error = action.error.message);
+    });
   },
 });
 
@@ -218,7 +262,7 @@ const calculateTaxes = (subtotal) => {
 
 const calculateTotal = (subtotal, tax) => {
   let total = subtotal + tax;
-  return total;
+  return Number(total.toFixed(2));
 };
 
 export const {

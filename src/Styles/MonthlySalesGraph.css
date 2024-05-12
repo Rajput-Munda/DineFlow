@@ -1,0 +1,16 @@
+/* MonthlySalesGraph.css */
+
+.monthly-sales-graph {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .chart-container {
+    width: 100%;
+    height: 400px; /* Adjust height as needed */
+    margin-top: 20px;
+  }
+  

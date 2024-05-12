@@ -18,6 +18,9 @@ export default function AdminPanel() {
           <li className="adminPanelListOption">
             <Link to="/adminpanel/Orders">Orders</Link>
           </li>
+          <li className="adminPanelListOption">
+            <Link to="/adminpanel/SalesAnalytics">Sales Analytics</Link>
+          </li>
         </ul>
         <hr></hr>
       </div>

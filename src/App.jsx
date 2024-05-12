@@ -11,10 +11,12 @@ import AdminPanel from "./Components/AdminPanel";
 import AdminPanelMenuItems from "./Components/AdminPanelMenuItems";
 import AdminPanelMenuCategories from "./Components/AdminPanelMenuCategories";
 import AdminPanelOrderContainer from "./Components/AdminPanelOrderContainer";
+import SalesAnalytics from "./Components/SalesAnalytics";
 import { useDispatch } from "react-redux";
 import { fetchRestaurantTables } from "./State/RestaurantSlice";
 import { KitchenSchedule } from "./Components/KitchenSchedule";
 import Navbar from "./Components/Navbar";
+import { getItemsForKitchenScheduling } from "./State/OrderSlice";
 
 function App() {
   useEffect(() => {
@@ -38,6 +40,10 @@ function App() {
     stompClient.subscribe("/topic/payment-made", (message) => {
       console.log("Received successfull payment message :", message.body);
       dispatch(fetchRestaurantTables());
+    });
+    stompClient.subscribe("/topic/kitchenStatus-updated", (message) => {
+      console.log("Received kitchen status update:", message.body);
+      dispatch(getItemsForKitchenScheduling());
     });
   };
 
@@ -89,6 +95,14 @@ function App() {
             element={
               <>
                 <AdminPanel /> <AdminPanelOrderContainer />
+              </>
+            }
+          ></Route>
+           <Route
+            path="/adminpanel/SalesAnalytics"
+            element={
+              <>
+                <AdminPanel /> <SalesAnalytics />
               </>
             }
           ></Route>

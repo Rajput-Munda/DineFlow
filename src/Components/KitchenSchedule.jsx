@@ -1,24 +1,15 @@
 import React, { useEffect, useState } from "react";
 import KitchenScheduleItem from "./KitchenScheduleItems";
+import { useDispatch, useSelector } from "react-redux";
+import { getItemsForKitchenScheduling } from "../State/OrderSlice";
 
 export const KitchenSchedule = () => {
-  const [ordersForKitchenScheduling, setOrdersForKitchenScheduling] = useState([]);
-
-  const getItemsForKitchenScheduling = async () => {
-    try {
-      const response = await fetch("http://127.0.0.1:8080/orders/getItemsForKitchenScheduling", {
-        method: "GET",
-      });
-      const data = await response.json();
-      setOrdersForKitchenScheduling(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const dispatch = useDispatch()
+  const ordersForKitchenScheduling = useSelector((state) => state.order.kitchenOrders)
 
   useEffect(() => {
-    getItemsForKitchenScheduling();
-  }, []);
+    dispatch(getItemsForKitchenScheduling())
+  },[dispatch])
 
   return (
     <>
@@ -29,6 +20,7 @@ export const KitchenSchedule = () => {
           orderDate={order.orderDate}
           orderTime={order.orderTime}
           orderItems={order.orderItems}
+          tableId = {order.tableId}
         />
       ))}
     </>

@@ -6,9 +6,12 @@ const Navbar = () => {
     <>
       <nav className="navbar sticky-top navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            DineFlow
-          </a>
+          <Link to="/" style={{textDecoration: 'none'}}>
+            <a className="navbar-brand" href="#">
+              DineFlow
+            </a>
+          </Link>
+
           <button
             className="navbar-toggler"
             type="button"
@@ -36,19 +39,27 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link to ="/" className="nav-link active" aria-current="page">
+                <Link to="/" className="nav-link active" aria-current="page">
                   Home
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to= "/adminpanel" className="nav-link active" aria-current="page">
+                <Link
+                  to="/adminpanel"
+                  className="nav-link active"
+                  aria-current="page"
+                >
                   Admin Panel
-                </Link>                     
+                </Link>
               </li>
               <li className="nav-item">
-                <Link to= "/kitchenSchedule" className="nav-link active" aria-current="page">
+                <Link
+                  to="/kitchenSchedule"
+                  className="nav-link active"
+                  aria-current="page"
+                >
                   Kitchen Schedule
-                </Link>                     
+                </Link>
               </li>
             </ul>
           </div>
