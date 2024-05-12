@@ -86,6 +86,7 @@ export const updateOrder = createAsyncThunk(
       },
     });
     fetchOrderDetails();
+    window.location.reload();
     return response.json();
   }
 );
